@@ -1,3 +1,5 @@
+use egui::{Color32, RichText};
+
 /// We derive Deserialize/Serialize so we can persist app state on shutdown.
 #[derive(serde::Deserialize, serde::Serialize)]
 #[serde(default)] // if we add new fields, give them default values when deserializing old state
@@ -61,33 +63,40 @@ impl eframe::App for TemplateApp {
                     ui.add_space(16.0);
                 }
 
-                egui::widgets::global_dark_light_mode_buttons(ui);
+                ui.label("JACE WILSON");
+
+                if ui.button("ABOUT").clicked() {
+
+                };
+
+                ui.hyperlink_to(
+                    "GITHUB",
+                    "https://github.com/poopnugget142",
+                );
             });
         });
 
         egui::CentralPanel::default().show(ctx, |ui| {
             // The central panel the region left after adding TopPanel's and SidePanel's
-            ui.heading("eframe template");
 
-            ui.horizontal(|ui| {
-                ui.label("Write something: ");
-                ui.text_edit_singleline(&mut self.label);
+            ui.vertical_centered(|ui| {
+                ui.set_max_width(800.0);
+                ui.label(RichText::new("This is a Portfolio written completely in Rust").size(20.0));
+                ui.label(RichText::new("ABOUT ME").size(70.0).color(Color32::WHITE));
+
+                ui.vertical(|ui| {
+                    ui.label(RichText::new("
+                    Hi! I'm Jace, a game programmer from The United States. I have been making games since I was 10. Henceforth, I have published several games and developer tools that have been widely used and have been able to grow a community around myself. I have spent many years teaching myself all the newest programming languages and software so that I may use it for my upcoming projects.
+                    ").size(15.0));
+                    ui.label(RichText::new("
+                    Here you can see all of my works that I've had the privilege of contributing to, or some of my own personal projects that I do for my own enjoyment. I want to continue to learn new talents and improve my skills as a programmer. There is always so much to learn and I am excited to do so as I develop my career.
+                    ").size(15.0));
+                });
             });
-
-            ui.add(egui::Slider::new(&mut self.value, 0.0..=10.0).text("value"));
-            if ui.button("Increment").clicked() {
-                self.value += 1.0;
-            }
-
-            ui.separator();
-
-            ui.add(egui::github_link_file!(
-                "https://github.com/emilk/eframe_template/blob/main/",
-                "Source code."
-            ));
 
             ui.with_layout(egui::Layout::bottom_up(egui::Align::LEFT), |ui| {
                 powered_by_egui_and_eframe(ui);
+                ui.label(RichText::new("⚠ W.I.P ⚠").color(Color32::YELLOW));
                 egui::warn_if_debug_build(ui);
             });
         });
