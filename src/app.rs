@@ -82,7 +82,9 @@ impl eframe::App for TemplateApp {
             ui.vertical_centered(|ui| {
                 ui.set_max_width(800.0);
                 ui.label(RichText::new("This is a Portfolio written completely in Rust").size(20.0));
+                ui.separator();
                 ui.label(RichText::new("ABOUT ME").size(70.0).color(Color32::WHITE));
+                ui.separator();
 
                 ui.vertical(|ui| {
                     ui.label(RichText::new("
